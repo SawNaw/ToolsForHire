@@ -13,6 +13,7 @@ namespace ToolsForHire.Pages
     {
         private readonly IConfiguration config;
         private readonly IProductData productData;
+        public string SearchString { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
 
@@ -22,10 +23,27 @@ namespace ToolsForHire.Pages
             this.productData = productData;
         }
 
-        public void OnGet()
+        public void OnGet(string searchString)
         {
-            // Give this List page model access to all products, so that it can list them.
-            Products = productData.GetAllProducts();
+            this.SearchString = searchString;
+
+            if (String.IsNullOrWhiteSpace(SearchString))
+            {
+                Products = productData.GetAllProducts();
+            }
+            else
+            {
+                if (SearchString.Contains("/"))
+                {
+                    Products = productData.GetProductsByProductCode(SearchString);
+                    if (Products.Any())
+                    {
+                        return;
+                    }
+                }
+
+                Products = productData.GetProductsByName(SearchString);
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ namespace ToolsForHire.Data
     public interface IProductData
     {
         IEnumerable<Product> GetAllProducts();
+        IEnumerable<Product> GetProductsByName(string name);
+        IEnumerable<Product> GetProductsByProductCode(string productCode);
     }
 
     /// <summary>
@@ -38,6 +40,16 @@ namespace ToolsForHire.Data
             return Products.OrderBy(x => x.ProductName)
                            .ThenBy(x => x.ProductCode)
                            .ThenBy(x => x.DailyHireCost);
+        }
+
+        public IEnumerable<Product> GetProductsByName(string name)
+        {
+            return Products.Where(x => x.ProductName.Contains(name));
+        }
+
+        public IEnumerable<Product> GetProductsByProductCode(string productCode)
+        {
+            return Products.Where(x => x.ProductCode.Contains(productCode));
         }
     }
 }
