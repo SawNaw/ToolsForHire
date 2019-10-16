@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,8 @@ namespace ToolsForHire
         {
             // Every time the app needs the left type, get it from the right class.
             services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddDbContextPool<ProductContext>(options =>
+                          options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
             services.AddRazorPages();
         }
 
