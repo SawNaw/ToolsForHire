@@ -26,9 +26,9 @@ namespace ToolsForHire
         public void ConfigureServices(IServiceCollection services)
         {
             // Every time the app needs the left type, get it from the right class.
-            services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddDbContextPool<ProductContext>(options =>
                           options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
+            services.AddScoped<IProductData, DatabaseProductData>();
             services.AddRazorPages();
         }
 
