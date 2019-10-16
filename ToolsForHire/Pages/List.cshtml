@@ -10,9 +10,15 @@
     <div class="form-actions no-color">
         <p>
             Enter a product code or product name to search:
-            <input type="text" name="SearchString" value="@Model.SearchString" />
+            <input asp-for="SearchString" type="search" name="SearchString" value="@Model.SearchString" />
+            <br />
+            Hire date:
+            <input asp-for="HireStartDate" type="date" name="HireStartDate" value="@Model.HireStartDate" />
+            Return date:
+            <input asp-for="HireEndDate" type="date" name="HireEndDate" value="@Model.HireEndDate" />
             <input type="submit" value="Search" class="btn btn-primary" /> |
-            <a asp-page="./Index">Back to full List</a>
+            <br />
+            <a asp-page="./Index" class="">Back to home page</a>
         </p>
     </div>
 </form>
@@ -22,13 +28,21 @@
         <th>Product Code</th>
         <th>Product Name</th>
         <th>Daily Hire Cost</th>
+        @if (Model.HireStartDate.Year != 0001 && Model.HireEndDate.Year != 0001)
+        {
+            <th>Total Hire Cost</th>
+        }
     </tr>
     @foreach (var product in Model.Products)
     {
         <tr>
             <td>@product.ProductCode</td>
             <td>@product.ProductName</td>
-            <td>@product.DailyHireCost</td>
+            <td>£@product.DailyHireCost</td>
+            @if(Model.HireStartDate.Year != 0001 && Model.HireEndDate.Year != 0001)
+            {
+                <td>£@Model.CalculateTotalCostOfHire(Model.HireStartDate, Model.HireEndDate, product.DailyHireCost)</td>
+            }
         </tr>
     }
 </table>
