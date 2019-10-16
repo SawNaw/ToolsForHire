@@ -27,10 +27,10 @@
     <tr>
         <th>Product Code</th>
         <th>Product Name</th>
-        <th>Daily Hire Cost</th>
+        <th style="text-align: right">Daily Hire Cost (£ per day)</th>
         @if (Model.HireStartDate.Year != 0001 && Model.HireEndDate.Year != 0001)
         {
-            <th>Total Hire Cost</th>
+            <th style="text-align: right">Total Hire Cost (£)</th>
         }
     </tr>
     @foreach (var product in Model.Products)
@@ -38,10 +38,12 @@
         <tr>
             <td>@product.ProductCode</td>
             <td>@product.ProductName</td>
-            <td>£@product.DailyHireCost</td>
+            <td style="text-align: right">@product.DailyHireCost</td>
             @if(Model.HireStartDate.Year != 0001 && Model.HireEndDate.Year != 0001)
             {
-                <td>£@Model.CalculateTotalCostOfHire(Model.HireStartDate, Model.HireEndDate, product.DailyHireCost)</td>
+                <td style="text-align: right">
+                    @Model.CalculateTotalCostOfHire(Model.HireStartDate, Model.HireEndDate, product.DailyHireCost)
+                </td>
             }
         </tr>
     }
