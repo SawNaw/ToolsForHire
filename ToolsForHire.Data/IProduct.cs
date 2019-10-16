@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ToolsForHire.Data
 {
-    public interface IProduct
+    public interface IProductData
     {
         IEnumerable<Product> GetAllProducts();
     }
@@ -13,7 +13,7 @@ namespace ToolsForHire.Data
     /// <summary>
     /// Temporary. Replace with database.
     /// </summary>
-    public class InMemoryProductData : IProduct
+    public class InMemoryProductData : IProductData
     {
         private readonly List<Product> Products;
 
