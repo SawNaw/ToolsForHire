@@ -6,3 +6,18 @@
 
 <h1>List of products</h1>
 
+<table class="table">
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Daily Hire Cost</th>
+    </tr>
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td>@product.ProductCode</td>
+            <td>@product.ProductName</td>
+            <td>@product.DailyHireCost</td>
+        </tr>
+    }
+</table>
